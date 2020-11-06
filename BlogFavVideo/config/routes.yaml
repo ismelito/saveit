@@ -1,0 +1,90 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+index:
+    path: /user
+    controller: App\Controller\UserController::index
+    methods: [GET]
+
+createUser:
+    path: /create/user
+    controller: App\Controller\UserController::createUser
+    methods: [POST]
+
+loginUser:
+    path: /login/user
+    controller: App\Controller\UserController::loginUser
+    methods: [POST]    
+    
+updateUser:
+    path: /update/user
+    controller: App\Controller\UserController::updateUser
+    methods: [PUT]   
+
+deleteUser:
+    path: /delete/user
+    controller: App\Controller\UserController::deleteUser
+    methods: [DELETE]
+
+deleteUserAdmin:
+    path: /delete/user/admin/{id}
+    controller: App\Controller\UserController::deleteUserAdmin
+    methods: [DELETE]     
+
+createVideo:
+    path: /create/video
+    controller: App\Controller\VideoController::createVideo
+    methods: [POST] 
+
+updateVideo:
+    path: /update/video/{id_video}
+    controller: App\Controller\VideoController::updateVideo
+    methods: [PUT] 
+
+removeVideo:
+    path: /remove/video/{id}
+    controller: App\Controller\VideoController::removeVideo
+    methods: [DELETE]   
+
+detailVideo:
+    path: /detail/video/{id}
+    controller: App\Controller\VideoController::detailVideo
+    methods: [GET]    
+
+listVideo:
+    path: /list/video/
+    controller: App\Controller\VideoController::listVideo
+    methods: [GET]
+
+#   Tableaux satellites
+
+selectTypeTelephone:
+    path: /select/type-telephone
+    controller: App\Controller\TypeTelephoneController::selectTypeTelephone
+    methods: [GET]
+
+selectSex:
+    path: /select/sex
+    controller: App\Controller\SexController::selectSex
+    methods: [GET]
+
+selectNationality:
+    path: /select/nationality
+    controller: App\Controller\NationalityController::selectNationality
+    methods: [GET]
+
+selectMaritalStatus:
+    path: /select/maritalStatus
+    controller: App\Controller\MaritalStatusController::selectMaritalStatus
+    methods: [GET]
+
+selectVideoStatus:
+    path: /select/videoStatus
+    controller: App\Controller\StatusVideoController::selectVideoStatus
+    methods: [GET]
+
+
+
+
+

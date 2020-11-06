@@ -1,0 +1,27 @@
+{
+        "name":"moraima" ,
+        "lastname": "acosta",
+        "birthday":"1985/11/27" ,        
+        "marital_Status":"Célibataire",
+        "nationality":"Française",
+        "sex":"Masculin",
+        "type_telephone":null,
+         "telephone":null,
+         "email": "moraima@hotmail.com",
+        "password" :"moraima",
+        "gettoken":true
+       
+    }
+
+
+{
+        "title":"casino" ,
+        "description": "danza popular bailable en Cuba",
+        "url":"https://www.youtube.com/watch?v=b4jaXaC1P04" ,        
+        "status":"private"
+        
+    }
+
+
+
+lolo@gmail.com

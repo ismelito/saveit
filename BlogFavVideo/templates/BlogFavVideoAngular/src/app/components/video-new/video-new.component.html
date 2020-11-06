@@ -1,0 +1,63 @@
+<div class="container-fluid mt-3">
+    <h1>
+        {{page_title}}
+    </h1>
+  <!-- <div class="col-md-12 mt-3 alert alert-success text-center" *ngIf="status =='success'">
+        Vidéo correctement stockée
+    </div>
+    <div class="col-md-12 mt-3 alert alert-danger text-center" *ngIf="status =='error'">
+        La vidéo n'a pas été sauvegardée
+    </div>
+   -->
+    <form class="col-md-12 ml-0 pl-0 " #videNew="ngForm" (ngSubmit)="onSubmit(videNew)">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="name">Titre</label>
+                    <input type="text" name="title" #title="ngModel" [(ngModel)]="video.title" required  class="form-control" id="nom" placeholder="Titre">
+                    <small *ngIf="!title.valid && title.touched" class="invalid-feedback d-block">Le titre n'est pas valable</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea  name="description" #description="ngModel" [(ngModel)]="video.description" required  
+                    class="form-control" id="lastname" placeholder="Description"></textarea>
+                    <small *ngIf="!description.valid && description.touched" class="invalid-feedback d-block">La description n'est pas valable</small>
+                </div>
+            </div>
+           
+            
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="url">Url de la vidéo youtube</label>
+                    <input type="text" name="url" #url="ngModel" [(ngModel)]="video.url" required  class="form-control" id="lastname" placeholder="Url">
+                    <small *ngIf="!url.valid && url.touched" class="invalid-feedback d-block">La url n'est pas valable</small>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="status">Statut de la vidéo</label>
+                <select type="text" name="status" #status="ngModel" [(ngModel)]="video.statusVideo" required  id="inputState" class="form-control">
+                    <option *ngFor="let videostatus of videoStatus" [ngValue]="videostatus">{{videostatus}}</option>
+                </select>
+                <small *ngIf="!status.valid && status.touched" class="invalid-feedback d-block"> Sélectionnez votre status</small>
+              </div>
+             
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                
+            </div>
+            <div class="form-group col-md-4">
+                <input type="submit" class="btn btn-primary float-right" value="Sauvegarder" [disabled]="videNew.invalid">
+              </div>
+             
+        </div>
+        
+
+        
+    </form>
+
+  </div>

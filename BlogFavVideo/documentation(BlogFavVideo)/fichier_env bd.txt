@@ -1,0 +1,3 @@
+DATABASE_URL=mysql://root@127.0.0.1:3306/blogfavvideo
+
+DATABASE_URL=mysql://saveit:save!troot1*@mysql-saveit.alwaysdata.net:3306/sa

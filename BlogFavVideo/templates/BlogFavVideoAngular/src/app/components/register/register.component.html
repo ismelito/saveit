@@ -1,0 +1,136 @@
+<div class="container-fluid mt-3">
+    <h1>
+        {{page_title}}
+    </h1>
+  <!-- <div class="col-md-12 mt-3 alert alert-success text-center" *ngIf=" status == 'success'">
+        Vous vous êtes inscrit correctement <a [routerLink]="['/login']">identifiez-vous ici</a>
+    </div>-->
+    <div class="col-md-12 mt-3 alert alert-danger text-center" *ngIf=" status == 'error'">
+        Vous n'êtes pas correctement enregistré <a [routerLink]="['/register']">identifiez-vous ici</a>
+    </div>
+
+    <form class="col-md-12 ml-0 pl-0 " #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required pattern="[a-zA-Z]+" class="form-control" id="nom" placeholder="Prénom">
+                    <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">  nom pas valid</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="lastname">Nom de famille</label>
+                    <input type="text" name="lastname" #lastname="ngModel" [(ngModel)]="user.lastname" required pattern="[a-zA-Z]+" class="form-control" id="lastname" placeholder="Nom">
+                    <small *ngIf="!lastname.valid && lastname.touched" class="invalid-feedback d-block"> nom de famille pas valid</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="birthday">Date de naissance</label>
+                    <input type="date" name="birthday" #birthday="ngModel" [(ngModel)]="user.birthday" required class="form-control" id="birthday" >
+                    <small *ngIf="!birthday.valid && birthday.touched" class="invalid-feedback d-block"> Date de naissance pas valid</small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="inputState">Nationalité</label>
+                <select type="text" name="nationality" #nationality="ngModel" [(ngModel)]="user.nationality" required  id="inputState" class="form-control">
+                    <option *ngFor="let nationality of Nationality" [ngValue]="nationality">{{nationality}}</option>
+                </select>
+                <small *ngIf="!nationality.valid && nationality.touched" class="invalid-feedback d-block"> Sélectionnez votre nationalité</small>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputState">Status Marital</label>
+                <select type="text" name="marital_Status" #marital_Status="ngModel" [(ngModel)]="user.marital_Status" required id="inputState" class="form-control">
+                    <option *ngFor="let maritalStatus of MaritalStatus" [ngValue]="maritalStatus">{{maritalStatus}}</option>
+                </select>
+                <small *ngIf="!marital_Status.valid && marital_Status.touched" class="invalid-feedback d-block"> Sélectionnez votre Status Marital</small>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputState">Sexe</label>
+                <select type="text" name="sex" #sex="ngModel" [(ngModel)]="user.sex" required id="inputState" class="form-control">
+                    <option *ngFor="let sex of Sex" [ngValue]="sex" >{{sex}}</option>
+                </select>
+                <small *ngIf="!sex.valid && sex.touched" class="invalid-feedback d-block"> Sélectionnez votre Sex</small>
+              </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4 ">
+                <label for="inputState">Type de Telephone</label>
+                <select  type="text" name="type_telephone" #type_telephone="ngModel" [(ngModel)]="user.type_telephone" id="inputState" class="form-control">
+                    <option ></option>  
+                    <option *ngFor="let typetel of typeTelephone" [ngValue]="typetel">{{typetel}}</option>                                  
+                </select>
+                
+            </div>
+            <div class="form-group col-md-4">
+                
+            </div>
+              
+            <div class="form-group col-md-4">
+                <label for="telephone">Telephone</label>
+                <input type="number" name="telephone" #telephone="ngModel" [(ngModel)]="user.telephone"  pattern="[0-9]+" class="form-control" id="telephone" placeholder="telephone">
+                
+            </div>
+            
+              
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" id="email" placeholder="email">
+                    <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block"> adresse mail pas valide</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input  type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required class="form-control" id="password" placeholder="mot de passe ">
+                    <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block"> le mot de passe ne doit pas être vide </small>
+                </div>
+                  <!-- show password as type="password" -->
+                   <!-- <div ng-if="!showPassword"
+                            class="form-group has-feedback">
+                        <label>password</label>
+                        <input type="password"
+                                ng-model="params.password"
+                                class="form-control"
+                                placeholder="type something here...">
+                        <span ng-if="params.password"
+                                ng-click="toggleShowPassword()"
+                                class="glyphicon glyphicon-eye-open form-control-feedback" 
+                                style="cursor: pointer; pointer-events: all;">
+                        </span>
+                     </div>-->
+                
+                   <!-- show password as type="text" -->
+                   <!--  <div ng-if="showPassword"
+                            class="form-group has-feedback">
+                        <label>password</label>
+                        <input type="text"
+                                ng-model="params.password"
+                                class="form-control"
+                                placeholder="type something here...">
+                        <span ng-if="params.password"
+                                ng-click="toggleShowPassword()"
+                                class="glyphicon glyphicon-eye-close form-control-feedback" 
+                                style="cursor: pointer; pointer-events: all;">
+                        </span>
+                    </div>-->
+            </div>
+        </div>
+
+        <div class="row">
+           
+        </div>
+
+        <input type="submit" class="btn btn-primary float-right" value="Enregistrer" [disabled]="registerForm.invalid">
+    </form>
+
+
+    
+</div>

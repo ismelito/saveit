@@ -1,0 +1,118 @@
+$loginnew= new Login();
+                $loginnew->setEmail($params->email);
+                $password=$params->password ;
+                $pwd=Hash('sha256', $password);
+                $loginnew->setPassword($pwd);
+                $errors=$validator->validate($loginnew);
+                if (count($errors)) { //verifie le type de champs envoie depuis l'interface
+                    $errorsString = (string) $errors;
+                    return new Response($errorsString);
+                } else {
+                    $isset_email= $loginrepository->findBy(['email' => $params->email ]);
+                    
+                    if (!count($isset_email)) {// verification si le mail il est deja existant
+                        // insertion en BBDD
+                        $em->persist($loginnew);
+                        $em->flush();
+                        
+                        
+                        //Récupération de l'identifiant de connexion login pour l'insérer dans la table user
+                        $Obj_login= $loginrepository->findBy(['email' => $params->email ]);
+                        
+                        if ($Obj_login) {
+                            
+                            //Récupération de l'identifiant de Login pour l'insérer dans la table user
+                            foreach ($Obj_login as $obj_login) {
+                                $id_login=$obj_login->getId();
+                            }
+                            //Récupération de l'objet d'autres champs
+                            $Obj_maritalStatus= $maritalStatusRepository->findBy(['maritalStatus' => $params->marital_Status ]);
+                            $Obj_role= $roleRepository->findBy(['role' => 'Utilisateur' ]);
+                            $Obj_nationality= $nationalityRepository->findBy(['nationality' => $params->nationality ]);
+                            $Obj_sex= $sexRepository->findBy(['sex' => $params->sex ]);
+
+                            //verificacion si el object exit
+                            if ($Obj_maritalStatus && $Obj_role && $Obj_nationality && $Obj_sex) {
+                                
+                                 //Récupération de l'identifiant de nationality pour l'insérer dans la table user
+                                foreach ($Obj_maritalStatus as $obj_maritalStatus) {
+                                    $id_maritalStatus=$obj_maritalStatus->getId();
+                                }
+                            
+                                foreach ($Obj_role as $obj_role) {
+                                    $id_role=$obj_role->getId();
+                                }
+                                
+                                foreach ($Obj_nationality as $obj_nationality) {
+                                    $id_nationality=$obj_nationality->getId();
+                                }
+                                
+                                foreach ($Obj_sex as $obj_sex) {
+                                    $id_sex=$obj_sex->getId();
+                                }
+
+                                //Creation d'un user
+                                
+                                $user=new User();
+                                $user->setName($params->name);
+                                $user->setLastName($params->lastname);
+                                $user->setBirthday($params->birthday);
+                                $user->setLogin($id_login);
+                                $user->setRole($id_role);
+                                $user->setNationality($id_nationality);
+                                $user->setMaritalStatus($id_maritalStatus);
+                                $user->setSex($id_sex);
+                                $user->setCreateAt(new \DateTime('now'));
+                                $user->setUpdateAt(new \DateTime('now'));
+                                
+                                //insérer a la BBDD
+                                $em->persist($user);
+                                $em->flush();
+                                
+                                //recuperation de l'object pour etre sur qu'il il est bien insere dans la BBD
+                                $Obj_user= $userRepository->findBy(['login' => $id_login ]);
+                               
+                                if ($Obj_user) {
+                                    foreach ($Obj_user as $obj_user) {
+                                        $id_user=$obj_user->getId();
+                                    }
+                                    
+                                    //confirmation de que on bien un telephone et un type de telephone
+                                   
+                                    if (!empty($teleph) && !empty($type_teleph)) {
+                                        
+                                        $Obj_typeTelephone= $typeTelephoneRepository->findBy(['typeTelephone' => $params->type_telephone ]);
+                                        foreach ($Obj_typeTelephone as $obj_typeTelephone) {
+                                            $id_typeTelephone=$obj_typeTelephone->getId();
+                                        }
+                                        $telephone_repo=$em->getRepository(Telephone::class);
+         
+                                        $telephone=$telephone_repo->findOneBy([
+                                            'telephone'=> $teleph,
+                                           
+                                        ]);
+
+                                        $telephone= new Telephone();
+                                        $telephone->setTelephone($params->telephone);
+                                        $telephone->setUser($id_user);
+                                        $telephone->setTypeTelephone($id_typeTelephone);
+                                       
+                                        $em->persist($telephone);
+                                        $em->flush();
+                                       
+                                    } 
+                                    $data=[
+                                        'status'=>'success',
+                                        'code'=>'200',
+                                        'msg'=>'utilisateur enregistré',
+                                        'data'=>$user
+                                      ];
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                return $this->json([
+                    'data'=> $data,
+                ]);

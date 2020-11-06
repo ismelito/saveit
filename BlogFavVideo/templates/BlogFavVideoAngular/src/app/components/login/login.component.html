@@ -1,0 +1,47 @@
+
+ 
+  <div class="container-fluid  " style="margin-top: 100px;">
+
+    <div class="col-md-12 mt-3 alert alert-danger text-center" *ngIf=" status == 'error'">
+        Email ou Mot de passe incorrecte <a [routerLink]="['/register']">S'inscrire</a>
+    </div>
+    <div class="container1">
+        <form class="col-md-12 ml-0 pl-0 " #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+          <div class="row">
+            
+            <div class="col-100">
+              <label for="email">Email</label>
+              <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" id="email" placeholder="email">
+                        <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block"> Adresse mail invalide</small>
+            </div>
+          </div>
+          <div class="row">
+            
+            <div class="col-100">
+                <label for="password" >Mot de passe</label>
+                <input  type="password" name="password" #password="ngModel" [(ngModel)]="user.password" required class="form-control" id="password" placeholder="mot de passe ">
+                <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block"> Mot de passe obligatoire </small>
+            </div>
+          </div>
+          <div class="row mt-5">
+            
+          </div>
+          <div class="row">
+            
+            <div class="col-100">
+                <input type="submit" style="color: white;" class=" btnConexion btn btn-primary float-left" value="Connexion" [disabled]="loginForm.invalid">
+
+            </div>
+          </div>
+          
+          <div class="row">
+            <a class="linkInscrire" [routerLink] ="['/register']"><span class="" >S'inscrire</span></a>
+          </div>
+        </form>
+      </div> 
+    
+
+
+    
+</div>
+
